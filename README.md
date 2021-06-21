@@ -22,12 +22,12 @@
 | Column             | Type       | Options           |
 |--------------------|------------|-------------------|
 | title              | string     | null: false       |
-| text               | text       | null: false       |
+| info               | text       | null: false       |
 | category_id        | integer    | null: false       |
 | condition_id       | integer    | null: false       |
 | delivery_charge_id | integer    | null: false       |
 | delivery_source_id | integer    | null: false       |
-| delivery_days_id   | integer    | null: false       |
+| delivery_day_id    | integer    | null: false       |
 | price              | integer    | null: false       |
 | user               | references | foreign_key: true |
 
