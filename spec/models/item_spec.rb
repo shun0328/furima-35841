@@ -63,7 +63,7 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Price is out of setting range")
       end
-      it '10000000円以上では登録できないこと' do
+      it '価格が10000000円以上では登録できないこと' do
         @item.price = 10000000
         @item.valid?
         expect(@item.errors.full_messages).to include("Price is out of setting range")
@@ -73,8 +73,13 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Price is out of setting range")
       end
-      it '半角英数字混合では登録できないこと' do
+      it '価格は半角英数字混合では登録できないこと' do
         @item.price = '1800yen'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price is out of setting range")
+      end
+      it '価格は半角英字のみでは出品できない' do
+        @item.price = 'onethousand'
         @item.valid?
         expect(@item.errors.full_messages).to include("Price is out of setting range")
       end
