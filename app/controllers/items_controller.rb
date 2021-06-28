@@ -39,7 +39,6 @@ class ItemsController < ApplicationController
     @item.destroy
     redirect_to root_path
   end
-
   private
   def item_params
     params.require(:item).permit(:image, :title, :info, :price, :category_id, :condition_id, :delivery_charge_id, :delivery_source_id, :delivery_day_id).merge(user_id: current_user.id)
