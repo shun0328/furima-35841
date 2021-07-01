@@ -2,6 +2,7 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :destroy]
   before_action :set_item, only: [:show, :edit, :update, :destroy]
   before_action :move_to_index, only: [:edit, :destroy]
+  before_action :item_present, only: [:edit, :update]
 
   def index
     @items = Item.all.includes(:user).order("created_at DESC")
@@ -39,7 +40,6 @@ class ItemsController < ApplicationController
     @item.destroy
     redirect_to root_path
   end
-
   private
   def item_params
     params.require(:item).permit(:image, :title, :info, :price, :category_id, :condition_id, :delivery_charge_id, :delivery_source_id, :delivery_day_id).merge(user_id: current_user.id)
@@ -52,6 +52,12 @@ class ItemsController < ApplicationController
   def move_to_index
     unless user_signed_in? && current_user.id == @item.user_id
       redirect_to action: :index
+    end
+  end
+
+  def item_present
+    if @item.purchase.present?
+      redirect_to root_path
     end
   end
 end
